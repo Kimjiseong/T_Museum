@@ -53,10 +53,7 @@ public class ARMarker : MonoBehaviour
     /// The animation playing.
     /// </summary>
     private Animation m_anim;
-    private bool m_displayGuiTextInput;
-    private object m_saveThread;
-    private string m_guiTextInputContents;
-    private bool m_guiTextInputResult;
+
 
     /// <summary>
     /// Awake this instance.
@@ -72,8 +69,8 @@ public class ARMarker : MonoBehaviour
     //★ Explanation Panel 생성 -> 자식 활성화
     private void Explanation()
     {
-        GameObject.Find("Explanation Panel").transform.FindChild("Title Panel").gameObject.SetActive(true);
-        GameObject.Find("Explanation Panel").transform.FindChild("Main Panel").gameObject.SetActive(true);
+        GameObject.Find("Explanation Panel").transform.FindChild("Image Panel").gameObject.SetActive(true);
+        GameObject.Find("Explanation Panel").transform.FindChild("Content Panel").gameObject.SetActive(true);
         GameObject.Find("Explanation Panel").transform.FindChild("Close Button").gameObject.SetActive(true);
     }
 
@@ -93,36 +90,10 @@ public class ARMarker : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator InputData()
+    private void InputData()
     {
-#if UNITY_EDITOR
-        // Work around lack of on-screen keyboard in editor:
-        //if (m_displayGuiTextInput || m_saveThread != null)
-        //{
-        //    yield break;
-        //}
-
-        m_displayGuiTextInput = true;
-        m_guiTextInputContents = "Unnamed";
-        while (m_displayGuiTextInput)
-        {
-            yield return null;
-        }
-
-        //bool saveConfirmed = m_guiTextInputResult;
-#else
-        if (TouchScreenKeyboard.visible || m_saveThread != null)
-        {
-            yield break;
-        }
-        
-        TouchScreenKeyboard kb = TouchScreenKeyboard.Open("Unnamed");
-        while (!kb.done && !kb.wasCanceled)
-        {
-            yield return null;
-        }
-
-        bool saveConfirmed = kb.done;
-#endif
+        GameObject.Find("Input Panel").transform.FindChild("Image Panel").gameObject.SetActive(true);
+        GameObject.Find("Input Panel").transform.FindChild("Content Panel").gameObject.SetActive(true);
+        GameObject.Find("Input Panel").transform.FindChild("Close Button").gameObject.SetActive(true);
     }
 }

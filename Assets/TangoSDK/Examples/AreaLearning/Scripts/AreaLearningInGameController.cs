@@ -345,43 +345,7 @@ public class AreaLearningInGameController : MonoBehaviour, ITangoPose, ITangoEve
             m_selectedRect = new Rect();
         }
 
-#if UNITY_EDITOR
-        // Handle text input when there is no device keyboard in the editor.
-        // 편집기에 장치 키보드가 없을 때 텍스트 입력을 처리하십시오.
-        if (m_displayGuiTextInput)
-        {
-            Rect textBoxRect = new Rect(100,
-                                        Screen.height - 200,
-                                        Screen.width - 200,
-                                        100);
 
-            Rect okButtonRect = textBoxRect;
-            okButtonRect.y += 100;
-            okButtonRect.width /= 2;
-
-            Rect cancelButtonRect = okButtonRect;
-            cancelButtonRect.x = textBoxRect.center.x;
-
-            GUI.SetNextControlName("TextField");
-            GUIStyle customTextFieldStyle = new GUIStyle(GUI.skin.textField);
-            customTextFieldStyle.alignment = TextAnchor.MiddleCenter;
-            m_guiTextInputContents = 
-                GUI.TextField(textBoxRect, m_guiTextInputContents, customTextFieldStyle);
-            GUI.FocusControl("TextField");
-
-            if (GUI.Button(okButtonRect, "OK")
-                || (Event.current.type == EventType.keyDown && Event.current.character == '\n'))
-            {
-                m_displayGuiTextInput = false;
-                m_guiTextInputResult = true;
-            }
-            else if (GUI.Button(cancelButtonRect, "Cancel"))
-            {
-                m_displayGuiTextInput = false;
-                m_guiTextInputResult = false;
-            }
-        }
-#endif
     }
 
     /// <summary>
